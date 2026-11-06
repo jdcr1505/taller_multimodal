@@ -1,0 +1,41 @@
+[
+  {
+    "imagen": "comp_1_resistencia.jpg",
+    "cruda": "{\n  \"componente\": \"Resistor\",\n  \"valor\": \"220\",\n  \"unidad\": \"Ω\",\n  \"terminales\": 2,\n  \"funcion\": \"Limitar el flujo de corriente eléctrica en el circuito\",\n  \"referencia\": null\n}",
+    "error": null,
+    "extraido": {
+      "componente": "Resistor",
+      "valor": "220",
+      "unidad": "Ω",
+      "terminales": 2,
+      "funcion": "Limitar el flujo de corriente eléctrica en el circuito",
+      "referencia": null
+    }
+  },
+  {
+    "imagen": "comp_2_capacitor.jpg",
+    "cruda": "{\n  \"componente\": \"Condensador electrolítico radial\",\n  \"valor\": \"100\",\n  \"unidad\": \"µF\",\n  \"terminales\": 2,\n  \"funcion\": \"Almacenamiento de carga eléctrica, filtrado y desacoplamiento de señal\",\n  \"referencia\": \"25V 100µF\"\n}",
+    "error": null,
+    "extraido": {
+      "componente": "Condensador electrolítico radial",
+      "valor": "100",
+      "unidad": "µF",
+      "terminales": 2,
+      "funcion": "Almacenamiento de carga eléctrica, filtrado y desacoplamiento de señal",
+      "referencia": "25V 100µF"
+    }
+  },
+  {
+    "imagen": "comp_3_transistor.jpg",
+    "cruda": "{\n  \"componente\": \"Transistor\",\n  \"valor\": null,\n  \"unidad\": null,\n  \"terminales\": 3,\n  \"funcion\": \"Transistor NPN de pequeña señal para amplificación y conmutación\",\n  \"referencia\": \"BC547\"\n}",
+    "error": null,
+    "extraido": {
+      "componente": "Transistor",
+      "valor": null,
+      "unidad": null,
+      "terminales": 3,
+      "funcion": "Transistor NPN de pequeña señal para amplificación y conmutación",
+      "referencia": "BC547"
+    }
+  }
+]

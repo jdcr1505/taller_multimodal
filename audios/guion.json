@@ -1,0 +1,7 @@
+{
+  "_ayuda": "Claves = nombre del archivo SIN extension. Valores = la frase EXACTA que se dijo (sirve para calcular el WER).",
+  "audio1_integrante1_sin_ruido": "¿Cuál es la diferencia entre una resistencia de 220 ohmios y una de 1 kiloohmio, y cómo afecta esto al paso de corriente en un circuito?",
+  "audio2_integrante2_sin_ruido": "¿Para qué sirve un condensador electrolítico y qué sucede si se conecta con la polaridad invertida?",
+  "audio3_integrante1_con_ruido": "Explícame cómo funciona un transistor NPN y cuál es la diferencia entre su colector, base y emisor.",
+  "audio4_integrante2_sin_ruido": "¿Cuál es la diferencia entre un circuito conectado en serie y uno conectado en paralelo? Explica cómo cambia la corriente."
+}

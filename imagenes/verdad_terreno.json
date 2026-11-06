@@ -1,0 +1,29 @@
+{
+  "_ayuda": "Las claves son el nombre del archivo SIN extension. Escribe lo que TU lees en la imagen. Usa null si el dato no se ve.",
+  "imagenes": {
+    "comp_1_resistencia": {
+      "componente": "Resistencia",
+      "valor": "220",
+      "unidad": "Ω",
+      "terminales": 2,
+      "funcion": "Limitar corriente",
+      "referencia": "rojo-rojo-marrón-dorado"
+    },
+    "comp_2_capacitor": {
+      "componente": "Condensador electrolítico",
+      "valor": "100",
+      "unidad": "µF",
+      "terminales": 2,
+      "funcion": "Almacenar energía",
+      "referencia": "100µF 25V"
+    },
+    "comp_3_transistor": {
+      "componente": "Transistor NPN",
+      "valor": null,
+      "unidad": null,
+      "terminales": 3,
+      "funcion": "Amplificar",
+      "referencia": "BC547"
+    }
+  }
+}

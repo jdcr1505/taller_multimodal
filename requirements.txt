@@ -1,0 +1,10 @@
+groq>=0.13
+langchain-groq
+langchain-core
+python-dotenv>=1.0
+pydantic>=2.5
+Pillow>=10.0
+# Solo para grabar audios desde el microfono (grabar_audio.py):
+sounddevice>=0.4
+scipy>=1.11
+tqdm>=4.66
