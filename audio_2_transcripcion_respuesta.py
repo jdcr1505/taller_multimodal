@@ -1,15 +1,20 @@
-"""Puntos 2.1 y 2.2 - Transcribe cada audio de audios/ con Whisper y pasa la
+"""Puntos 2.1 y 2.2 - Transcribe audios de audios/ con Whisper y pasa la
 transcripcion al modelo de lenguaje para que responda.
 
+Eliges cuales audios procesar (uno, varios o todos).
+
 Uso:
-    python audio_2_transcripcion_respuesta.py
-    python audio_2_transcripcion_respuesta.py --prompt-tecnico   # sesga a Whisper con vocabulario de electronica
+    python audio_2_transcripcion_respuesta.py                      # menú interactivo
+    python audio_2_transcripcion_respuesta.py audio2_integrante2_sin_ruido   # por nombre
+    python audio_2_transcripcion_respuesta.py --todos              # todos, sin preguntar
+    python audio_2_transcripcion_respuesta.py --prompt-tecnico     # sesga a Whisper con vocabulario de electrónica
     python audio_2_transcripcion_respuesta.py --modelo whisper-large-v3
 
-Si existe audios/guion.json (frase que realmente dijiste), calcula el WER.
+Si existe audios/guion.json (frase que realmente se dijo), calcula el WER.
 """
 import argparse
 import json
+import re
 
 from common import (AUDIO_DIR, EXT_AUDIO, MODELO_AUDIO, MODELO_TEXTO, cargar,
                     cliente, guardar, preguntar)
@@ -21,6 +26,8 @@ SISTEMA = ("Eres un tutor de electrónica. Responde en español, de forma clara 
            "técnicamente correcta, en máximo 150 palabras.")
 
 ap = argparse.ArgumentParser()
+ap.add_argument("audios", nargs="*", help="nombre del archivo (con o sin extensión)")
+ap.add_argument("--todos", action="store_true")
 ap.add_argument("--prompt-tecnico", action="store_true")
 ap.add_argument("--modelo", default=MODELO_AUDIO)
 args = ap.parse_args()
@@ -44,11 +51,27 @@ guion_path = AUDIO_DIR / "guion.json"
 guion = json.loads(guion_path.read_text(encoding="utf-8")) if guion_path.exists() else {}
 guion = {k: v for k, v in guion.items() if not k.startswith("_")}
 
-archivos = sorted(p for p in AUDIO_DIR.iterdir() if p.suffix.lower() in EXT_AUDIO)
-if not archivos:
+disponibles = sorted(p for p in AUDIO_DIR.iterdir() if p.suffix.lower() in EXT_AUDIO)
+if not disponibles:
     raise SystemExit("No hay audios en audios/ (wav, mp3, m4a, ogg, webm).")
 
-client = cliente()              # Groq, solo para transcribir con Whisper
+if args.todos:
+    archivos = disponibles
+elif args.audios:
+    archivos = []
+    for n in args.audios:
+        enc = [p for p in disponibles if p.name == n or p.stem == n]
+        if not enc:
+            raise SystemExit(f"No encuentro el audio '{n}' en {AUDIO_DIR}")
+        archivos.append(enc[0])
+else:
+    for i, p in enumerate(disponibles, 1):
+        print(f"{i}. {p.name}")
+    sel = input("Números de los audios (ej. 1 3; Enter = todos): ")
+    nums = re.findall(r"\d+", sel)
+    archivos = [disponibles[int(n) - 1] for n in nums] if nums else disponibles
+
+client = cliente()                # Groq, solo para transcribir con Whisper
 llm_model = cargar(MODELO_TEXTO)  # cargar_llm, para responder
 md = [f"# 2.1 / 2.2  (Whisper: `{args.modelo}`, LLM: `{MODELO_TEXTO}`, "
       f"prompt técnico: {'sí' if args.prompt_tecnico else 'no'})\n"]
@@ -80,4 +103,6 @@ for p in archivos:
               + f"**Respuesta del modelo:**\n\n{respuesta}\n")
 
 sufijo = "_prompt" if args.prompt_tecnico else ""
-guardar(f"2_audio{sufijo}.md", "\n".join(md) + "\n\n## Resumen\n\n" + "\n".join(tabla) + "\n")
+nombre = f"2_audio_{archivos[0].stem}{sufijo}.md" if len(archivos) == 1 else f"2_audio{sufijo}.md"
+resumen = "\n\n## Resumen\n\n" + "\n".join(tabla) + "\n" if len(archivos) > 1 else "\n"
+guardar(nombre, "\n".join(md) + resumen)
