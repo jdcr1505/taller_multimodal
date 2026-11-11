@@ -1,4 +1,4 @@
-# Taller multimodal y audio — Dominio: Electrónica
+# Taller multimodal y audio — Dominio: Electrónica.
 
 Visión (Qwen) y transcripción de audio (Whisper) sobre componentes y circuitos electrónicos con Groq. Todo se ejecuta por consola.
 
